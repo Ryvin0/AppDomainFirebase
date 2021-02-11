@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+
+                @if (Context.User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text">Hello, <b>@Context.User.Identity.Name</b></p>
+                        </li>
+                        <li>
+                            <a onclick="document.getElementById('logout_form').submit();"
+                               style="cursor: pointer;">Log out</a>
+                        </li>
+                    </ul>
+                    <form action="/Account/Logout" method="post" id="logout_form"></form>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+                    </ul>
+                }
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-analytics.js"></script>
+
+    <script>
+          // Your web app's Firebase configuration
+          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          var firebaseConfig = {
+            apiKey: "AIzaSyD433Q8RkRkQsnGEqsl3AZa2EgMWB-7Hw8",
+            authDomain: "application-domain.firebaseapp.com",
+            projectId: "application-domain",
+            storageBucket: "application-domain.appspot.com",
+            messagingSenderId: "1098147484932",
+            appId: "1:1098147484932:web:92cbf544fd542c812f6c51",
+            measurementId: "G-4L2TH5Q7K7"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+          firebase.analytics();
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
